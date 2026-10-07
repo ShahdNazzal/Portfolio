@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shahed Nazzal — AI, Data &amp; Software</title>
+  <meta name="description" content="Shahed Nazzal — recent Artificial Intelligence &amp; Data Science graduate from Yarmouk University. I build technology across AI, data and software: computer vision, RAG systems, full-stack platforms and data analysis.">
+  <meta name="author" content="Shahed Nazzal">
+  <meta name="theme-color" content="#0d0b0b">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Shahed Nazzal — AI, Data &amp; Software">
+  <meta property="og:description" content="Recent AI &amp; Data Science graduate building intelligent digital experiences — computer vision, RAG, full-stack and data analysis.">
+  <meta property="og:site_name" content="Shahed Nazzal">
+  <!-- When you deploy, add:  <meta property="og:image" content="https://YOUR-DOMAIN/portrait.jpg">  and  <meta property="og:url" content="https://YOUR-DOMAIN/"> -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shahed Nazzal — AI, Data &amp; Software">
+  <meta name="twitter:description" content="Recent AI &amp; Data Science graduate building intelligent digital experiences.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0b0b'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='44' font-style='italic' text-anchor='middle' fill='%23d98ea0'%3ES%3C/text%3E%3C/svg%3E">
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Shahed Nazzal",
+    "description": "Artificial Intelligence and Data Science graduate building technology across AI, data and software.",
+    "email": "mailto:shahednazzall.777@gmail.com",
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Yarmouk University" },
+    "sameAs": [
+      "https://github.com/ShahdNazzal",
+      "https://www.linkedin.com/in/shahd-nazzal-594049298/"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Page-load curtain -->
+  <div class="preloader" aria-hidden="true">
+    <span class="preloader__name">Shahed Nazzal</span>
+    <span class="preloader__count" data-count>0</span>
+  </div>
+
+  <!-- The 3D stage -->
+  <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+
+  <header class="site-header" data-theme="dark">
+    <a class="brand" href="#top" aria-label="Shahed Nazzal — back to top">S<span>.</span>N</a>
+
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-tools">
+      <div class="social">
+        <a href="https://github.com/ShahdNazzal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/shahd-nazzal-594049298/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 22 22" width="18" height="18" aria-hidden="true"><rect x="2" y="7.5" width="3.6" height="11.5" fill="currentColor"/><circle cx="3.8" cy="3.8" r="2.1" fill="currentColor"/><path fill="currentColor" d="M8.6 7.5h3.4v1.6c.5-.95 1.75-1.9 3.5-1.9 3.6 0 4.3 2.35 4.3 5.4V19h-3.6v-5.8c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V19H8.6z"/></svg>
+        </a>
+      </div>
+      <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Ambient sound">
+        <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="sound-toggle__text" data-sound-text aria-hidden="true">Sound off</span>
+      </button>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+        <span data-menu-text>Menu</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="menu" id="menu" aria-label="Mobile" inert>
+    <ul class="menu__list">
+      <li><a href="#about"><span>01</span>About</a></li>
+      <li><a href="#work"><span>02</span>Work</a></li>
+      <li><a href="#skills"><span>03</span>Skills</a></li>
+      <li><a href="#contact"><span>04</span>Contact</a></li>
+    </ul>
+    <p class="menu__foot">
+      <a href="https://www.linkedin.com/in/shahd-nazzal-594049298/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/ShahdNazzal" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </nav>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top" data-theme="dark" aria-labelledby="hero-title">
+      <div class="hero__orb" aria-hidden="true"></div>
+
+      <div class="hero__meta">
+        <p class="eyebrow" data-hero style="--d:700">Portfolio <span>— 2026</span></p>
+        <p class="eyebrow" data-hero style="--d:800">AI · Data · Software</p>
+      </div>
+
+    <h1 class="hero__title" id="hero-title" aria-label="Shahed Nazzal"> 
+        <span class="hero__line hero__line--a" data-chars>Shahed</span> 
+        <span class="hero__line hero__line--b" data-chars>Nazzal</span> 
+      </h1> 
+
+      <div class="hero__foot">
+        <p class="hero__lede" data-hero style="--d:1000">
+          I build technology and intelligent digital experiences — from data and models to the interfaces people actually use.
+        </p>
+        <div class="hero__actions" data-hero style="--d:1100">
+          <a class="btn btn--solid" href="#work">See the work</a>
+          <a class="btn btn--ghost" href="#contact">Let’s connect</a>
+        </div>
+      </div>
+
+      <a class="scroll-cue" href="#about" aria-label="Scroll to About" data-hero style="--d:1300"><span></span></a>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about section section--light" id="about" data-theme="light" aria-labelledby="about-title">
+      <div class="wrap about__grid">
+
+        <figure class="portrait" data-reveal>
+          <div class="portrait__frame" id="portrait">
+            <div class="portrait__inner" data-parallax data-speed="0.04">
+              <img src="portrait.jpg" width="854" height="1280" decoding="async"
+                   alt="Shahed Nazzal in a cream suit and soft taupe hijab, holding a black graduation cap embroidered with her name in gold Arabic calligraphy.">
+            </div>
+          </div>
+          <figcaption>Shahed Nazzal — Jordan</figcaption>
+        </figure>
+
+        <div class="about__body">
+          <p class="label" data-reveal><span>01</span> About</p>
+          <h2 class="about__statement" id="about-title" data-split>
+            I like making things that work — and understanding <em>why</em> they do.
+          </h2>
+
+          <div class="about__cols">
+            <p data-reveal>
+              I just finished my degree in Artificial Intelligence and Data Science at Yarmouk University, and I spent those four years building rather than only studying: a driving-test system that watches the road, a RAG assistant for company knowledge, a fitness platform with an AI coach inside it, and a churn analysis taken from raw data to dashboards.
+            </p>
+            <p data-reveal data-delay="120">
+              My interests are deliberately wide — models, data, backends, interfaces — and I’m at my best where they meet. I learn fast and I finish what I start.
+            </p>
+          </div>
+
+          <dl class="facts" data-reveal>
+            <div><dt>Studied</dt><dd>AI &amp; Data Science</dd></div>
+            <div><dt>At</dt><dd>Yarmouk University, Jordan</dd></div>
+            <div><dt>Years</dt><dd>2022 — 2026</dd></div>
+            <div><dt>Open to</dt><dd>AI, data &amp; software roles</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="work section" id="work" data-theme="dark" aria-labelledby="work-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label" data-reveal><span>02</span> Selected work</p>
+          <h2 class="section-head__title" id="work-title" data-split>What I can <em>actually</em> build.</h2>
+          <p class="section-head__note" data-reveal>Four projects that turn ideas into things that actually work.</p>
+        </header>
+
+        <!--
+          DEMO VIDEOS: change the YouTube ID in `data-video` on the <li class="case"> — nothing else needs editing.
+          A project with no `data-video` simply has no demo button.
+        -->
+        <ol class="cases">
+
+  <!-- 01 — DriveSkills -->
+  <li class="case" data-video="tsPAnppxqkI" data-title="DriveSkills" data-reveal>
+    <div class="case__head">
+      <p class="case__num">01</p>
+      <h3 class="case__title">DriveSkills</h3>
+      <p class="case__kind">AI driving-license examination</p>
+      <p class="case__role">Graduation project · Team of 4</p>
+    </div>
+
+    <div class="case__body">
+      <p class="case__lede">
+        Driving tests examined with computer vision instead of a clipboard. I led model training and evaluation — YOLOv8 detection and segmentation across four examination tasks.
+      </p>
+
+      <p class="case__stat">
+        <strong>97.4%</strong>
+        <span>peak mAP@50</span>
+      </p>
+
+      <ul class="chips" aria-label="Technologies">
+        <li>YOLOv8</li>
+        <li>Computer Vision</li>
+        <li>Next.js</li>
+        <li>Supabase</li>
+      </ul>
+
+      <div class="case__actions">
+
+        <!-- LIVE WEBSITE -->
+        <a class="btn btn--sm"
+           href="https://roxa.vercel.app/"
+           target="_blank"
+           rel="noopener noreferrer">
+          View live project ↗
+        </a>
+
+        <!-- YOUTUBE DEMO -->
+        <button class="btn btn--sm"
+                type="button"
+                data-demo
+                aria-label="Watch the DriveSkills demo">
+          <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+            <path d="M8 5.5v13l11-6.5z" fill="currentColor"/>
+          </svg>
+          Watch demo
+        </button>
+
+        <details class="case__more">
+          <summary>Details</summary>
+          <ul>
+            <li>Three AI services — Road Analysis, Parking Evaluation and Driver Monitoring — hosted on Hugging Face Spaces.</li>
+            <li>Next.js frontend on Vercel, with Supabase behind it.</li>
+            <li>A scoring system that combines the AI’s results with the examiner’s own input.</li>
+          </ul>
+        </details>
+
+      </div>
+    </div>
+  </li>
+
+
+  <!-- 02 — Evolva -->
+  <li class="case" data-video="OwFgl6vXdJo" data-title="Evolva" data-reveal>
+    <div class="case__head">
+      <p class="case__num">02</p>
+      <h3 class="case__title">Evolva</h3>
+      <p class="case__kind">Women’s fitness &amp; wellness platform</p>
+      <p class="case__role">Full-stack application</p>
+    </div>
+
+    <div class="case__body">
+      <p class="case__lede">
+        A fitness and wellness platform designed specifically for women — with trainers, subscribers, a community, and an AI coach.
+      </p>
+
+      <p class="case__stat">
+        <strong>7 days</strong>
+        <span>structured plans from the AI coach</span>
+      </p>
+
+      <ul class="chips" aria-label="Technologies">
+        <li>React</li>
+        <li>TypeScript</li>
+        <li>Supabase</li>
+        <li>Real-time</li>
+      </ul>
+
+      <div class="case__actions">
+
+        <!-- LIVE WEBSITE -->
+        <a class="btn btn--sm"
+           href="https://evolvalife.netlify.app/"
+           target="_blank"
+           rel="noopener noreferrer">
+          View live project ↗
+        </a>
+
+        <!-- YOUTUBE DEMO -->
+        <button class="btn btn--sm"
+                type="button"
+                data-demo
+                aria-label="Watch the Evolva demo">
+          <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+            <path d="M8 5.5v13l11-6.5z" fill="currentColor"/>
+          </svg>
+          Watch demo
+        </button>
+
+        <details class="case__more">
+          <summary>Details</summary>
+          <ul>
+            <li>Two roles — trainer and subscriber — with subscriptions between them.</li>
+            <li>Social posts and real-time chat.</li>
+            <li>An AI fitness coach that builds structured 7-day plans.</li>
+            <li>Authentication and database on Supabase.</li>
+          </ul>
+        </details>
+
+      </div>
+    </div>
+  </li>
+
+
+  <!-- 03 — Knowledge Assistant -->
+  <li class="case" data-video="OwFgl6vXdJo" data-title="Knowledge Assistant" data-reveal>
+    <div class="case__head">
+      <p class="case__num">03</p>
+      <h3 class="case__title">Knowledge Assistant</h3>
+      <p class="case__kind">AI-powered RAG system</p>
+      <p class="case__role">Generative AI &amp; backend</p>
+    </div>
+
+    <div class="case__body">
+      <p class="case__lede">
+        A retrieval-augmented system that lets employees ask questions and get answers drawn from their company’s own HR documents.
+      </p>
+
+      <ul class="chips" aria-label="Technologies">
+        <li>LLMs</li>
+        <li>Embeddings</li>
+        <li>Vector search</li>
+        <li>FastAPI</li>
+        <li>Docker</li>
+      </ul>
+
+      <div class="case__actions">
+
+        <!-- YOUTUBE DEMO -->
+        <button class="btn btn--sm"
+                type="button"
+                data-demo
+                aria-label="Watch the Knowledge Assistant demo">
+          <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+            <path d="M8 5.5v13l11-6.5z" fill="currentColor"/>
+          </svg>
+          Watch demo
+        </button>
+
+        <details class="case__more">
+          <summary>Details</summary>
+          <ul>
+            <li>RAG architecture with LLMs, embeddings and vector search.</li>
+            <li>Employee Q&amp;A plus HR document management.</li>
+            <li>FastAPI backend, containerised with Docker.</li>
+          </ul>
+        </details>
+
+      </div>
+    </div>
+  </li>
+
+
+  <!-- 04 — Customer Churn -->
+  <li class="case" data-reveal>
+    <div class="case__head">
+      <p class="case__num">04</p>
+      <h3 class="case__title">Churn Analysis</h3>
+      <p class="case__kind">Customer analysis &amp; segmentation</p>
+      <p class="case__role">Data analytics &amp; machine learning</p>
+    </div>
+
+    <div class="case__body">
+      <p class="case__lede">
+        An end-to-end look at why customers leave — from 7,000+ raw records to segments, predictive models and dashboards.
+      </p>
+
+      <ul class="chips" aria-label="Technologies">
+        <li>Python</li>
+        <li>Random Forest</li>
+        <li>Power BI</li>
+        <li>Tableau</li>
+      </ul>
+
+      <div class="case__actions">
+
+        <!-- LIVE WEBSITE -->
+        <a class="btn btn--sm"
+           href="https://customer-churns-eta.vercel.app/"
+           target="_blank"
+           rel="noopener noreferrer">
+          View live project ↗
+        </a>
+
+        <details class="case__more">
+          <summary>Details</summary>
+          <ul>
+            <li>Data analysis and customer segmentation in Python.</li>
+            <li>Churn modelling with Logistic Regression and Random Forest.</li>
+            <li>Findings presented in Power BI / Tableau dashboards.</li>
+          </ul>
+        </details>
+
+      </div>
+    </div>
+  </li>
+
+</ol>
+
+        <p class="work__more" data-reveal>
+          <a class="link-arrow" href="https://github.com/ShahdNazzal" target="_blank" rel="noopener noreferrer">More on GitHub <span aria-hidden="true">↗</span></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="skills section" id="skills" data-theme="dark" aria-labelledby="skills-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label" data-reveal><span>03</span> Capabilities</p>
+          <h2 class="section-head__title" id="skills-title" data-split>Range, <em>on purpose.</em></h2>
+        </header>
+
+        <div class="caps">
+          <div class="caps__list" role="tablist" aria-label="Capability areas" aria-orientation="vertical">
+            <button class="caps__tab" role="tab" type="button" id="tab-ai" aria-controls="panel-ai" aria-selected="true">
+              <span class="caps__n">01</span><span class="caps__name">AI &amp; Data</span>
+            </button>
+            <button class="caps__tab" role="tab" type="button" id="tab-web" aria-controls="panel-web" aria-selected="false" tabindex="-1">
+              <span class="caps__n">02</span><span class="caps__name">Software &amp; Web</span>
+            </button>
+            <button class="caps__tab" role="tab" type="button" id="tab-data" aria-controls="panel-data" aria-selected="false" tabindex="-1">
+              <span class="caps__n">03</span><span class="caps__name">Data &amp; Backend</span>
+            </button>
+            <button class="caps__tab" role="tab" type="button" id="tab-tools" aria-controls="panel-tools" aria-selected="false" tabindex="-1">
+              <span class="caps__n">04</span><span class="caps__name">Tools &amp; Deployment</span>
+            </button>
+          </div>
+
+          <div class="caps__panels">
+            <div class="caps__panel is-active" role="tabpanel" id="panel-ai" aria-labelledby="tab-ai" tabindex="0">
+              <p class="caps__blurb">Models that see, read and predict — and the analysis that explains them.</p>
+              <ul class="tags">
+                <li>Python</li><li>Machine Learning</li><li>Deep Learning</li><li>Computer Vision</li><li>YOLOv8</li><li>Generative AI</li><li>LLMs</li><li>RAG</li><li>Embeddings</li><li>Data analysis</li>
+              </ul>
+            </div>
+
+            <div class="caps__panel" role="tabpanel" id="panel-web" aria-labelledby="tab-web" tabindex="0">
+              <p class="caps__blurb">Interfaces and services that turn the models into something people can use.</p>
+              <ul class="tags">
+                <li>JavaScript</li><li>TypeScript</li><li>React</li><li>Next.js</li><li>FastAPI</li><li>REST APIs</li><li>HTML</li><li>CSS</li>
+              </ul>
+            </div>
+
+            <div class="caps__panel" role="tabpanel" id="panel-data" aria-labelledby="tab-data" tabindex="0">
+              <p class="caps__blurb">Where the information lives — structured, secured and available in real time.</p>
+              <ul class="tags">
+                <li>SQL</li><li>PostgreSQL</li><li>Supabase</li><li>Authentication</li><li>Real-time</li><li>Data processing</li>
+              </ul>
+            </div>
+
+            <div class="caps__panel" role="tabpanel" id="panel-tools" aria-labelledby="tab-tools" tabindex="0">
+              <p class="caps__blurb">Shipping it: versioned, containerised and deployed.</p>
+              <ul class="tags">
+                <li>Git</li><li>GitHub</li><li>Docker</li><li>Hugging Face</li><li>AWS</li><li>Vercel</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION & RECOGNITION ============ -->
+    <section class="edu section section--light" id="education" data-theme="light" aria-labelledby="edu-title">
+      <div class="wrap">
+        <div class="edu__grid">
+          <div class="edu__main">
+            <p class="label" data-reveal><span>04</span> Education</p>
+            <h2 class="edu__title" id="edu-title" data-split>Yarmouk <em>University</em></h2>
+            <p class="edu__degree" data-reveal>Bachelor’s in Artificial Intelligence and Data Science</p>
+            <p class="edu__years" data-reveal>2022 — 2026</p>
+          </div>
+
+          <div class="edu__training">
+            <h3 class="mini-title" data-reveal>Training &amp; certifications</h3>
+            <ol class="list" data-reveal>
+              <li><span>AWS</span> Generative AI training</li>
+              <li><span>AWS Academy</span> Natural Language Processing</li>
+              <li><span>AWS</span> Cloud Foundations</li>
+              <li><span>Training</span> Data Analytics &amp; Business Intelligence</li>
+              <li><span>Cisco</span> English for IT</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="edu__along">
+          <h3 class="mini-title" data-reveal>Along the way</h3>
+          <ul class="along">
+            <li data-reveal><strong>4th place</strong><span>ENTC Food Competition · team of 4</span></li>
+            <li data-reveal data-delay="100"><strong>Participant</strong><span>NASA Space Apps Challenge</span></li>
+            <li data-reveal data-delay="200"><strong>Participant</strong><span>HTU Sumo Robotics</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact section" id="contact" data-theme="dark" aria-labelledby="contact-title">
+      <div class="wrap">
+        <p class="label" data-reveal><span>05</span> Contact</p>
+        <h2 class="contact__title" id="contact-title" data-split>Let’s build <em>something</em> good.</h2>
+        <p class="contact__lede" data-reveal>I’m open to roles across AI, data and software — and to interesting problems. Email or LinkedIn is the quickest way to reach me.</p>
+
+        <ul class="contact__links">
+          <li data-reveal><a href="mailto:shahednazzall.777@gmail.com"><span>Email</span><i aria-hidden="true">↗</i></a></li>
+          <li data-reveal data-delay="100"><a href="https://www.linkedin.com/in/shahd-nazzal-594049298/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><i aria-hidden="true">↗</i></a></li>
+          <li data-reveal data-delay="200"><a href="https://github.com/ShahdNazzal" target="_blank" rel="noopener noreferrer"><span>GitHub</span><i aria-hidden="true">↗</i></a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" data-theme="dark">
+    <p>© 2026 Shahed Nazzal</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <!-- Demo viewer -->
+  <dialog class="demo" id="demo" aria-labelledby="demo-title">
+    <div class="demo__box">
+      <div class="demo__bar">
+        <p class="demo__title" id="demo-title">Demo</p>
+        <a class="demo__ext" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
+        <button class="demo__close" type="button">Close</button>
+      </div>
+      <div class="demo__frame"></div>
+    </div>
+  </dialog>
+</body>
+</html>
