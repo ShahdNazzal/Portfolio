@@ -671,12 +671,12 @@
   // Where the sculpture lives as you move through the page.
   // x / y are fractions of the half-viewport; s = scale; a = opacity.
   const POSES = {
-    top:       { d: { x: 0.46, y: -0.02, s: 1.35, a: 1 },    m: { x: 0, y: 0.12, s: 0.82, a: 1 } },
-    about:     { d: { x: -0.5, y: 0, s: 0.7, a: 0 },         m: { x: 0, y: 0, s: 0.5, a: 0 } },
-    work:      { d: { x: 0.62, y: 0.02, s: 0.6, a: 0.14 },   m: { x: 0.3, y: 0.1, s: 0.45, a: 0.08 } },
-    skills:    { d: { x: 0.55, y: 0.05, s: 0.85, a: 0.34 },  m: { x: 0.25, y: 0.2, s: 0.55, a: 0.16 } },
-    education: { d: { x: 0, y: 0, s: 0.6, a: 0 },            m: { x: 0, y: 0, s: 0.4, a: 0 } },
-    contact:   { d: { x: 0, y: -0.05, s: 1.2, a: 0.5 },      m: { x: 0, y: 0, s: 0.85, a: 0.34 } },
+    top:       { d: { x: 0.46, y: -0.02, s: 1.35, a: 1 },    m: { x: 0.22, y: 0.1, s: 1.05, a: 1 } },
+    about:     { d: { x: -0.5, y: 0, s: 0.7, a: 0 },         m: { x: 0, y: 0, s: 0.7, a: 0 } },
+    work:      { d: { x: 0.62, y: 0.02, s: 0.6, a: 0.14 },   m: { x: 0.45, y: 0.05, s: 0.7, a: 0.14 } },
+    skills:    { d: { x: 0.55, y: 0.05, s: 0.85, a: 0.34 },  m: { x: 0.4, y: 0.1, s: 0.95, a: 0.3 } },
+    education: { d: { x: 0, y: 0, s: 0.6, a: 0 },            m: { x: 0, y: 0, s: 0.6, a: 0 } },
+    contact:   { d: { x: 0, y: -0.05, s: 1.2, a: 0.5 },      m: { x: 0, y: 0, s: 1.1, a: 0.5 } },
   };
 
   function webglAvailable() {
@@ -690,10 +690,8 @@
     const canvas = $('#stage');
     const fallback = () => root.classList.add('no-3d');
 
-    const saveData = navigator.connection?.saveData;
-    const weak = (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
-      (window.innerWidth < 760 && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-    if (!canvas || saveData || weak || !webglAvailable()) { fallback(); return; }
+    // الـ3D شغّال على كل الأجهزة (موبايل ولابتوب) — بنرجع للبديل فقط إذا الـWebGL مش متوفر
+    if (!canvas || !webglAvailable()) { fallback(); return; }
 
     let THREE;
     try { THREE = await import(CONFIG.threeUrl); } catch (_) { fallback(); return; }
@@ -701,10 +699,10 @@
     const small = window.innerWidth < 760;
     let renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: !small, alpha: true, powerPreference: 'high-performance' });
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
     } catch (_) { fallback(); return; }
 
-    const maxDpr = small ? 1.5 : 2;
+    const maxDpr = small ? 2 : 2;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
     camera.position.z = 6;
@@ -720,7 +718,7 @@
       uRose: { value: rgb(217, 142, 160) },
     };
 
-    const detail = small ? 22 : 40;
+    const detail = small ? 32 : 40;   // تفاصيل قريبة جداً من اللابتوب مع أداء مناسب للموبايل
     const body = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1, detail),
       new THREE.ShaderMaterial({ vertexShader: VERTEX, fragmentShader: FRAGMENT, uniforms }),
