@@ -11,6 +11,8 @@
    * ------------------------------------------------------------------ */
   const CONFIG = {
     email: '',            // e.g. 'name@example.com' — adds an email link in Contact
+    // ملف الصوت الوحيد للموقع (بيانو). غيّري الاسم إذا ملفك اسمه مختلف.
+    soundFile: 'audio/piano.mp4',
     threeUrl: 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js',
   };
 
@@ -92,7 +94,7 @@
       li.dataset.delay = '200';
       const a = document.createElement('a');
       a.href = `mailto:${CONFIG.email}`;
-      a.innerHTML = '<span>Email</span><i aria-hidden="true">↗</i>';
+      a.innerHTML = '<span>Email</span><i aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" focusable="false" aria-hidden="true"><path d="M6 18 18 6M8.5 6H18v9.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></i>';
       li.appendChild(a);
       list.appendChild(li);
     }
@@ -330,214 +332,71 @@
   }
 
   /* ------------------------------------------------------------------ *
-   *  Sound — a slow, quiet ambient pad synthesised with the Web Audio API
-   *  (no audio files). Soft sine voices drift through four open chords
-   *  (Dmaj9 → Bm7 → Gmaj7 → Dsus2), washed in a long reverb, with a very
-   *  low master level. Off by default; starts only after the visitor
-   *  clicks the toggle, and fades in over a few seconds.
+   *  Sound — one looping audio file (CONFIG.soundFile). Off by default;
+   *  starts only after the visitor clicks the toggle, fades in/out, and
+   *  is lowered while a demo video plays.
    * ------------------------------------------------------------------ */
   const Sound = (() => {
-    let ctx = null;
-    let master = null;
-    let fx = null;
-    let noise = null;
-    let built = false;
+    const FILE = CONFIG.soundFile;
+    const LEVEL = 0.6;
+    let audio = null;
     let on = false;
     let ducked = false;
-    let timer = 0;
-    let step = 0;
-    let suspendTimer = 0;
-    const voices = [];
-
-    const LEVEL = 0.045;        // overall loudness of the pad — intentionally very low
-    const CHORD_EVERY = 32000;  // ms between chord changes
-    const GLIDE = 6;          // seconds-ish for notes to drift to the next chord
-    const CHORDS = [
-      [73.42, 220.0, 329.63, 369.99],   // Dmaj9   D2 A3 E4 F#4
-      [61.74, 246.94, 293.66, 369.99],  // Bm7     B1 B3 D4 F#4
-      [98.0, 246.94, 293.66, 369.99],   // Gmaj7   G2 B3 D4 F#4
-      [73.42, 220.0, 293.66, 329.63],   // Dsus2   D2 A3 D4 E4
-    ];
-    const VOICE_GAIN = [0.62, 0.3, 0.14, 0.07];
+    let fadeTimer = 0;
 
     const btn = $('.sound-toggle');
     const label = $('[data-sound-text]');
 
-    function impulse(seconds, decay) {
-      const len = Math.floor(ctx.sampleRate * seconds);
-      const buf = ctx.createBuffer(2, len, ctx.sampleRate);
-      for (let c = 0; c < 2; c++) {
-        const d = buf.getChannelData(c);
-        for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
-      }
-      return buf;
+    function fade(target, ms) {
+      if (!audio) return;
+      clearInterval(fadeTimer);
+      const from = audio.volume;
+      const t0 = performance.now();
+      fadeTimer = setInterval(() => {
+        const p = Math.min(1, (performance.now() - t0) / ms);
+        audio.volume = from + (target - from) * p;
+        if (p >= 1) { clearInterval(fadeTimer); if (target === 0) audio.pause(); }
+      }, 50);
     }
 
-    function build() {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return false;
-      ctx = new AC();
-
-      master = ctx.createGain();
-      master.gain.value = 0;
-      master.connect(ctx.destination);
-
-      const verb = ctx.createConvolver();
-      verb.buffer = impulse(7, 2.6);
-      const wet = ctx.createGain();
-      wet.gain.value = 0.85;
-      verb.connect(wet);
-      wet.connect(master);
-
-      const dry = ctx.createGain();
-      dry.gain.value = 0.5;
-      dry.connect(master);
-
-      // Everything the pad plays goes through a soft low-pass.
-      const lowpass = ctx.createBiquadFilter();
-      lowpass.type = 'lowpass';
-      lowpass.frequency.value = 340;
-      lowpass.Q.value = 0.4;
-      lowpass.connect(dry);
-      lowpass.connect(verb);
-
-      // Chimes and swells join the reverb too, bypassing the low-pass.
-      fx = ctx.createGain();
-      fx.gain.value = 1;
-      fx.connect(dry);
-      fx.connect(verb);
-
-      // Slow "breathing" of the filter
-      const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.04;
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.value = 70;
-      lfo.connect(lfoGain);
-      lfoGain.connect(lowpass.frequency);
-      lfo.start();
-
-      // Four voices, each a detuned pair of sines with its own gentle swell.
-      CHORDS[0].forEach((freq, i) => {
-        const vg = ctx.createGain();
-        vg.gain.value = VOICE_GAIN[i];
-        vg.connect(lowpass);
-
-        const swellLfo = ctx.createOscillator();
-        swellLfo.frequency.value = 0.045 + i * 0.017;
-        const swellDepth = ctx.createGain();
-        swellDepth.gain.value = VOICE_GAIN[i] * 0.25;
-        swellLfo.connect(swellDepth);
-        swellDepth.connect(vg.gain);
-        swellLfo.start();
-
-        const pair = [-6, 6].map((detune) => {
-          const osc = ctx.createOscillator();
-          osc.type = 'sine';
-          osc.frequency.value = freq;
-          osc.detune.value = detune;
-          osc.connect(vg);
-          osc.start();
-          return osc;
-        });
-        voices.push(pair);
-      });
-
-      // Reusable noise buffer for the soft swells
-      noise = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
-      const data = noise.getChannelData(0);
-      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-      return true;
-    }
-
-    function nextChord() {
-      if (!ctx) return;
-      step = (step + 1) % CHORDS.length;
-      const t = ctx.currentTime;
-      voices.forEach((pair, i) => pair.forEach((osc) => osc.frequency.setTargetAtTime(CHORDS[step][i], t, GLIDE)));
-    }
-
-    function level(tc) {
-      if (!ctx) return;
-      const t = ctx.currentTime;
-      master.gain.cancelScheduledValues(t);
-      master.gain.setTargetAtTime(on && !ducked ? LEVEL : 0, t, tc);
-    }
-
-    async function set(next) {
-      if (next && !built) { built = build(); if (!built) return; }
-      on = next;
-      clearTimeout(suspendTimer);
-      clearInterval(timer);
-      if (ctx) {
-        if (next) {
-          try { await ctx.resume(); } catch (_) { /* ignore */ }
-          timer = setInterval(nextChord, CHORD_EVERY);
-          level(4);                         // very slow fade-in
-        } else {
-          level(1.2);                       // slow fade-out
-          suspendTimer = setTimeout(() => { if (!on && ctx.state === 'running') ctx.suspend(); }, 4500);
+    function sync() {
+      if (on && !document.hidden) {
+        if (!audio) {
+          audio = new Audio(FILE);
+          audio.loop = true;
+          audio.preload = 'auto';
+          audio.addEventListener('error', () => set(false));
         }
+        if (audio.paused) {
+          audio.volume = 0;
+          const p = audio.play();
+          if (p && p.catch) p.catch(() => set(false));
+        }
+        fade(ducked ? LEVEL * 0.25 : LEVEL, 1800);
+      } else if (audio && !audio.paused) {
+        fade(0, 1200);
       }
+    }
+
+    function set(next) {
+      on = next;
       btn.classList.toggle('is-on', next);
       btn.setAttribute('aria-pressed', String(next));
       label.textContent = next ? 'Sound on' : 'Sound off';
-      if (next) chime();
+      sync();
     }
 
-    // One soft, distant bell note.
-    function chime(freq = 523.25, vol = 0.08) {
-      if (!on || !ctx) return;
-      const t = ctx.currentTime + 0.3;
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = freq;
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol, t + 0.8);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 4.5);
-      osc.connect(g);
-      g.connect(fx);
-      osc.start(t);
-      osc.stop(t + 4.7);
-    }
-
-    // A breath of filtered air (menu open / close).
-    function swell(dir = 1) {
-      if (!on || !ctx) return;
-      const t = ctx.currentTime;
-      const src = ctx.createBufferSource();
-      src.buffer = noise;
-      const band = ctx.createBiquadFilter();
-      band.type = 'bandpass';
-      band.Q.value = 0.7;
-      band.frequency.setValueAtTime(dir > 0 ? 220 : 640, t);
-      band.frequency.exponentialRampToValueAtTime(dir > 0 ? 640 : 220, t + 1.2);
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.07, t + 0.6);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 1.5);
-      src.connect(band);
-      band.connect(g);
-      g.connect(fx);
-      src.start(t);
-      src.stop(t + 1.6);
-    }
-
-    // Lower the pad while a demo video is playing, then bring it back.
-    function duck(flag) {
-      ducked = flag;
-      if (ctx && on) level(flag ? 0.35 : 1.8);
-    }
+    function duck(flag) { ducked = flag; sync(); }
 
     function init() {
+      if (!FILE) { btn.style.display = 'none'; return; }
       btn.addEventListener('click', () => set(!on));
       document.addEventListener('visibilitychange', () => {
-        if (!ctx || !on) return;
-        if (document.hidden) ctx.suspend(); else ctx.resume();
+        if (document.hidden) { if (audio) audio.pause(); } else sync();
       });
     }
 
-    return { init, swell, chime, duck };
+    return { init, swell() {}, chime() {}, duck };
   })();
 
   /* ------------------------------------------------------------------ *
